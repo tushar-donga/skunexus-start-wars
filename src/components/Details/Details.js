@@ -1,27 +1,27 @@
-import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { Container, Row, Col } from "reactstrap";
+import React, { useEffect, useState } from "react"
+import { useLocation, useNavigate } from "react-router-dom"
+import { Container, Row, Col } from "reactstrap"
 
 const DetailsComponent = () => {
-  let location = useLocation();
-  const planetData = location.state.data;
-  const navigate = useNavigate();
-
-  const [viewData, setViewData] = useState([]);
+  let location = useLocation()
+  const planetData = location.state.data
+  const navigate = useNavigate()
+  console.log("planetData", planetData)
+  const [viewData, setViewData] = useState([])
 
   const getDetailsView = (data) => {
-    let listViewData = [];
+    let listViewData = []
     for (const [key, value] of Object.entries(data)) {
-      listViewData.push({ label: key, value: typeof value === "object" ? value.length : value });
+      listViewData.push({ label: key, value: typeof value === "object" ? value.length : value })
     }
-    setViewData(listViewData);
-  };
+    setViewData(listViewData)
+  }
 
   useEffect(() => {
     if (planetData) {
-      getDetailsView(planetData);
+      getDetailsView(planetData)
     }
-  }, [planetData]);
+  }, [planetData])
 
   return (
     <Container className="my-4">
@@ -43,11 +43,11 @@ const DetailsComponent = () => {
                 <Col>{item.label} : </Col>
                 <Col>{item.value}</Col>
               </Row>
-            );
+            )
           })}
       </div>
     </Container>
-  );
-};
+  )
+}
 
-export default DetailsComponent;
+export default DetailsComponent

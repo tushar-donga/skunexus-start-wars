@@ -2,7 +2,7 @@ const initialState = {
   planet: [],
   films: [],
   residents: [],
-};
+}
 
 export const planetReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -10,18 +10,18 @@ export const planetReducer = (state = initialState, action) => {
       return {
         ...state,
         planet: action.payload,
-      };
+      }
     case "FILMS":
       return {
         ...state,
-        planet: [action.payload],
-      };
+        films: action.payload,
+      }
     case "RES":
       return {
         ...state,
-        planet: [action.payload],
-      };
+        residents: action.payload,
+      }
     default:
-      return state;
+      return state
   }
-};
+}
