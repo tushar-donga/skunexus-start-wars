@@ -1,6 +1,6 @@
 import "./Grid.css";
 
-function Grid({ data }) {
+function  Grid({ data }) {
   return (
     <table className="gridTable table-group-divider table-bordered">
       <thead>

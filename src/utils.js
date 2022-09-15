@@ -1,4 +1,4 @@
-export const generateCustomTable = (data, getFilmsData, getResidentsData, showDetails) => {
+export const generateCustomTable = (data, getFilmsData, getResidentsData, showDetails, level) => {
   if (data.length) {
     let columns = []
     for (const [key, value] of Object.entries(data[0])) {
@@ -38,9 +38,25 @@ export const generateCustomTable = (data, getFilmsData, getResidentsData, showDe
         },
       ],
     }
+    const actionLevelTwo = {
+      header: columns,
+      rowData: data,
+      actions: [
+        {
+          label: "Show Details",
+          action: (row) => {
+            showDetails(row)
+          },
+        },
+      ],
+    }
 
     const tableState = []
-    tableState?.push(tempData)
+    if(level === 'Level2') {
+      tableState?.push(actionLevelTwo) 
+    } else {
+      tableState?.push(tempData)
+    }
     return tableState
   }
 }

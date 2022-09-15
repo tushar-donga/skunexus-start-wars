@@ -11,8 +11,6 @@ const Film = () => {
   const planetData = useSelector((state) => state)
   const [tableData, setTableData] = useState([])
   let location = useLocation()
-  const filmData = location.state.data
-
   const getFilmsData = () => {
     console.log("no data")
   }
@@ -21,29 +19,35 @@ const Film = () => {
     console.log("no data")
   }
 
-  const showDetails = (rowData) => navigate("/details", { state: { data: rowData } })
-
   useEffect(() => {
-    if (filmData) {
-      dispatch(fetchFilms(filmData))
+    const fetchData = () => {
+      const filmData = location.state.data
+      if (filmData) {
+        dispatch(fetchFilms(filmData))
+      }
     }
-  }, [])
+    fetchData()
+  }, [dispatch, location])
 
-  const getCustomData = (films) => {
-    const filmData = generateCustomTable(
-      films,
-      () => getFilmsData(),
-      () => getResidentsData(),
-      (res) => showDetails(res)
-    )
-    setTableData(...filmData)
-  }
+  
 
   useEffect(() => {
+    const showDetails = (rowData) => navigate("/details", { state: { data: rowData } })
+
+    const getCustomData = () => {
+      const filmData = generateCustomTable(
+        planetData.films,
+        () => getFilmsData(),
+        () => getResidentsData(),
+        (res) => showDetails(res),
+        "Level2"
+      )
+      setTableData(...filmData)
+    }
     if (planetData.films.length) {
-      getCustomData(planetData.films)
+      getCustomData()
     }
-  }, [planetData.films])
+  }, [planetData.films, navigate])
 
   return (
     <div>

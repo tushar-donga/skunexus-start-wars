@@ -12,31 +12,29 @@ function Planets() {
   const planetData = useSelector((state) => state)
   const [tableData, setTableData] = useState([])
 
-  const showDetails = (rowData) => navigate("/details", { state: { data: rowData } })
-
   useEffect(() => {
     dispatch(fetchData("https://swapi.dev/api/planets/"))
   }, [dispatch])
 
-  const getFilmsData = (rowData) => navigate("films", { state: { data: rowData } })
-
-  const getResidentsData = (rowData) => navigate("residents", { state: { data: rowData } })
-
-  const getCustomData = (residents) => {
-    const filmData = generateCustomTable(
-      residents,
-      (res) => getFilmsData(res),
-      (res) => getResidentsData(res),
-      (res) => showDetails(res)
-    )
-    setTableData(...filmData)
-  }
-
   useEffect(() => {
+    const showDetails = (rowData) => navigate("/details", { state: { data: rowData } })
+    const getFilmsData = (rowData) => navigate("films", { state: { data: rowData } })
+    const getResidentsData = (rowData) => navigate("residents", { state: { data: rowData } })  
+  
+    const getCustomData = (residents) => {
+      const filmData = generateCustomTable(
+        residents,
+        (res) => getFilmsData(res),
+        (res) => getResidentsData(res),
+        (res) => showDetails(res),
+        "Level1"
+      )
+      setTableData(...filmData)
+    }
     if (planetData.planet.length) {
       getCustomData(planetData.planet)
     }
-  }, [planetData.planet])
+  }, [planetData.planet, navigate])
 
   return <div className="App">{tableData && <Grid data={tableData} />}</div>
 }
