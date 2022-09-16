@@ -30,16 +30,16 @@ const DetailsComponent = () => {
           <h3> Details</h3>
         </Col>
         <Col>
-          <button onClick={() => navigate("/")} className="btn btn-dark">
+          <button onClick={() => navigate(-1)} className="btn btn-dark">
             Back
           </button>
         </Col>
       </Row>
       <div className="text-center my-4 border border-dark py-4">
         {viewData &&
-          viewData.map((item) => {
+          viewData.map((item,index) => {
             return (
-              <Row className="border px-3 my-2 text-start">
+              <Row className="border px-3 my-2 text-start" key={index}>
                 <Col>{item.label} : </Col>
                 <Col>{item.value}</Col>
               </Row>

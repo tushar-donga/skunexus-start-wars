@@ -29,8 +29,8 @@ function  Grid({ data }) {
             })}
             {!!data?.actions?.length && (
               <td className="gridActions">
-                {data?.actions?.map(({ label, action }) => (
-                  <button className="btn btn-secondary m-1" onClick={() => action(row)}>
+                {data?.actions?.map(({ label, action },index) => (
+                  <button className="btn btn-secondary m-1" onClick={() => action(row)} key={index}>
                     {label}
                   </button>
                 ))}
